@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: voltronite-backend
+    plan: free
+    env: node
+    buildCommand: |
+      curl -fsSL https://bun.sh/install | bash
+      export BUN_INSTALL="$HOME/.bun"
+      export PATH="$BUN_INSTALL/bin:$PATH"
+      bun install
+    startCommand: |
+      export BUN_INSTALL="$HOME/.bun"
+      export PATH="$BUN_INSTALL/bin:$PATH"
+      bun run src/index.ts
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 3551
