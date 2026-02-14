@@ -16,7 +16,7 @@ app.use("*", cors({
 }));
 
 loadRoutes(app);
-
+ 
 app.get("/", (c) => c.text("Voltronite, Made by Razer!"));
 app.get("/unknown", (c) => c.json({}));
 app.notFound((c) => {
