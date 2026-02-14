@@ -2,10 +2,18 @@ import { Hono } from "hono";
 import { Logger } from "./utils/logger";
 import { sendError } from "./utils/senderror";
 import { loadRoutes } from "./utils/loadroutes";
+import { cors } from "hono/cors"; // <-- import CORS middleware
 
 const app = new Hono();
 global.users ??= [];
 global.accessTokens ??= [];
+
+// Enable CORS for all routes (you can restrict origins if needed)
+app.use("*", cors({
+  origin: "*", // allow all origins; for production, replace with your app domain
+  allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowHeaders: ["Content-Type", "Authorization"]
+}));
 
 loadRoutes(app);
 
