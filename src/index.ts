@@ -15,7 +15,8 @@ app.use("*", cors({
   allowHeaders: ["Content-Type", "Authorization"]
 }));
 
-loadRoutes(app);
+// Await route loading before starting the server
+await loadRoutes(app);
 
 app.get("/", (c) => c.text("Voltronite, Made by Razer!"));
 app.get("/unknown", (c) => c.json({}));
