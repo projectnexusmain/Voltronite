@@ -300,6 +300,29 @@ export default (app: Hono) => {
     }
   });
 
+  // /id/login — Fortnite iOS opens this URL, Moonwave intercepts it and
+  // redirects the WKWebView to LOGIN_URL (your /login page).
+  // Without this route the backend returns 404 before Moonwave can intercept.
+  app.get("/id/login", async (c) => {
+    const filePath = path.join(__dirname, "../../public/auth/MobileLogin.html");
+    try {
+      const html = await fs.promises.readFile(filePath, "utf-8");
+      return c.html(html);
+    } catch {
+      return c.text("File not found", 404);
+    }
+  });
+
+  app.get("/id/register", async (c) => {
+    const filePath = path.join(__dirname, "../../public/auth/MobileLogin.html");
+    try {
+      const html = await fs.promises.readFile(filePath, "utf-8");
+      return c.html(html);
+    } catch {
+      return c.text("File not found", 404);
+    }
+  });
+
   app.get("/account/api/public/account/:accountId/deviceAuth", (c) =>
     c.json([])
   );
